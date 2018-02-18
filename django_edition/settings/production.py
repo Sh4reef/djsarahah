@@ -25,7 +25,7 @@ SECRET_KEY = 'Secret is secret'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.djsarahah.herokuapp.com']
+ALLOWED_HOSTS = ['.djsarahah.herokuapp.com', '.herokuapp.com']
 
 
 # Application definition
