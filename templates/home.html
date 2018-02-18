@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load hosts %}
+
+{% block search %}
+{{block.super}}
+{% endblock search %}
+
+{% block content %}
+
+    {% if messages %}
+    <section class="custom-account-deleted-message mt-5">
+      <div class="container">
+        <div class="d-flex justify-content-center mx-2">
+          <div  id="account-deleted-message" class="text-center text-danger">
+            <i class="fa fa-exclamation-triangle fa-5x mb-4"></i>
+            {% for message in messages %}
+            <h2 {% if message.tags %} class="text-{{ message.tags }}"{% endif %}>{{ message }}</h2>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    {% if not messages %}
+
+    <section class='custom-header'>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 col-md-11 col-sm-10 col-10">
+            <p class="lead">Receive honest feedback from your co-workers, bosses, clients, and friends</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class='custom-form'>
+      <div class="container">
+        {% if not request.user.is_authenticated %}
+        <p class="lead text-center">Create your own link</p>
+        {% else %}
+        <p class="lead text-center">Your custom link</p>
+        {% endif %}
+        <div class="row">
+          <div class="col-lg-2 col-1"></div>
+          <div class="col-lg-8 col-10">
+            {% if not request.user.is_authenticated %}
+            <form class="create-username-form" method="POST">
+              {% csrf_token %}
+              <div class="input-group input-group-sm">
+                <input type="text" id="{{form.username.id_for_label}}" name="{{form.username.name}}" class="form-control" placeholder="{{form.username.label}}" aria-label="{{form.username.label}}" aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon2">.zbbdly.com</span>
+                <span class="input-group-btn">
+                  <button class="btn btn-success" id='create-button' type="submit" disabled>Create</button>
+                </span>
+              </div>
+              <input type="text" readonly class="form-control-plaintext" id="username-status" value=".zbbdly.com">
+              <span class="badge badge-success d-none" id='badge-success'>Username available</span>
+              <span class="badge badge-danger d-none" id='badge-danger'>Not available</span>
+            </form>
+            {% else %}
+            {% host_url 'sub_send_message' host 'user' username=request.user as user_url %}
+            <p class="lead text-info text-center mb-0"><ins>{{user_url|cut:'/'}}</ins></p>
+            {% endif %}
+          </div>
+          <div class="col-lg-2 col-1"></div>
+        </div>
+      </div>
+    </section>
+
+    <hr>
+
+    <section class='custom-content'>
+      <div class="container">
+        <p class="lead text-center">Publish your link</p>
+        <div class="row not-gutters justify-content-center">
+          <div class="col-md-6 text-center">
+            <div class="content">
+              <p><img src="{% static 'icon/clients-60x60.png' %}" alt="Clients"></p>
+              <h5>With your clients</h5>
+              <div class="row">
+                <div class="col-1">
+                </div>
+                <div class="col-10">
+                  <p class="text-left">Get their opinions and ideas about your product, And improve your quality of your product, Increase your productivity</p>
+                  <hr class="d-md-none">
+                </div>
+                <div class="col-1">
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-md-6 text-center">
+            <div class="content">
+              <p><img src="{% static 'icon/friends-60x60.png' %}" alt="Friends"></p>
+              <h5>With your friends</h5>
+              <div class="row">
+                <div class="col-1">
+                </div>
+                <div class="col-10">
+                  <p class="text-left">Strengthen your friendship by discovering what makes you a good person, Your friends will be honest because they feel comfortable without identifying their identity</p>
+                  <hr class="d-md-none">
+                </div>
+                <div class="col-1">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {% endif %}
+
+    <ul class='results'>
+
+    </ul>
+
+{% endblock content %}
+
+{% block javascript %}
+<script type="text/javascript">
+        $('document').ready(function(){
+            $('.create-username-form')[0].reset();
+            var usernameInput = $('#id_username');
+            var createButton = $('#create-button');
+            var readOnlyInput = $('#username-status');
+            var host = '.zbbdly.com';
+            var successBadge = $('#badge-success');
+            var dangerBadge = $('#badge-danger');
+            var typingTimeout;
+            usernameInput.keyup(function(){
+                clearTimeout(typingTimeout)
+                typingTimeout = setTimeout(ajaxFunc, 1000);
+                createButton.prop('disabled', ' ')
+                successBadge.addClass('d-none')
+                dangerBadge.addClass('d-none')
+                usernameInput.removeClass('is-valid is-invalid')
+                readOnlyInput.css('color', '#000');
+                readOnlyInput.val(usernameInput.val() + host);
+            });
+            if(usernameInput.val().length >= 1){
+              createButton.removeAttr('disabled')
+            }
+            function ajaxFunc(){
+                if(usernameInput.val().length < 1){
+                    console.log('Clear')
+                    createButton.prop('disabled', ' ')
+                    usernameInput.removeClass('is-valid is-invalid')
+                }
+                if(usernameInput.val().length >= 1){$.ajax({
+                    method: 'GET',
+                    url: window.location.pathname,
+                    data: {'check_username': usernameInput.val()},
+                    success: ajaxSuccess
+                })}
+            }
+            function ajaxSuccess(data, textStatus, jqXHR){
+                console.log(data.status);
+                if(data.status === 1){
+                    createButton.removeAttr('disabled')
+                    usernameInput.addClass('is-valid')
+                    successBadge.removeClass('d-none')
+                    readOnlyInput.css('color', '#28a745');
+                }
+                if(data.status === 0){
+                    usernameInput.addClass('is-invalid')
+                    dangerBadge.removeClass('d-none')
+                    readOnlyInput.css('color', '#dc3545');
+                }
+            }
+        });
+</script>
+{% endblock javascript %}

@@ -1,0 +1,128 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+
+<section class="custom-login-form text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-1 col-sm-2 col-md-3 col-lg-3 col-xl-4 pr-0">
+
+      </div>
+      <div class="col-10 col-sm-8 col-md-6 col-lg-5 ml-lg-5 ml-xl-auto p-0 col-xl-4" id="login-form">
+        <div class="bg-light py-2" id="signin-head-text">
+          <p class="lead mb-0">{% trans "Sign In" %}</p>
+        </div>
+        <div class="user-icon">
+          <i class="fa fa-user fa-5x"></i>
+        </div>
+
+        <div class="w-75 mx-auto text-left validations" id="validations">
+          {% for error in form.non_field_errors %}
+          <small><i class="fa fa-warning">&nbsp;&nbsp;</i>{{error}}</small>
+            {% endfor %}
+          <p></p>
+        </div>
+
+
+
+        <form class="login" method="POST" action="{% url 'account_login' %}">
+          {% csrf_token %}
+
+          <div class="w-75 mx-auto text-left validations" id="validations">
+            {% for error in form.login.errors %}
+            <small><i class="fa fa-warning">&nbsp;&nbsp;</i>{{error}}</small>
+              {% endfor %}
+            <p></p>
+          </div>
+          <div class="form-group w-75 mx-auto">
+            <div class="input-group align-items-center username-input-group" id='username-input-group'>
+              <i class="fa fa-user">&nbsp;</i>
+              <input type="text" id="{{form.login.id_for_label}}" name="{{form.login.name}}" class="form-control" placeholder="{{form.login.label}}">
+            </div>
+          </div>
+
+          <div class="w-75 mx-auto text-left validations" id="validations">
+            {% for error in form.password.errors %}
+            <small><i class="fa fa-warning">&nbsp;&nbsp;</i>{{error}}</small>
+              {% endfor %}
+            <p></p>
+          </div>
+          <div class="form-group w-75 mx-auto">
+            <div class="input-group align-items-center password-input-group" id='password-input-group'>
+              <i class="fa fa-lock">&nbsp;</i>
+              <input type="password" id="{{form.password.id_for_label}}" name="{{form.password.name}}" class="form-control" placeholder="{{form.password.label}}">
+            </div>
+
+          </div>
+          <div class="form-check w-75 mx-auto text-left mb-5">
+            <label for="{{form.remember.id_for_label}}" class="form-check-label" id='remember-me-checkbox'>
+              <input type="checkbox" id="{{form.remember.id_for_label}}" name="{{form.remember.name}}" class="form-check-input">
+              <small>Remember Me</small>
+            </label>
+          </div>
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+          <button class="primaryAction btn btn-info d-block mx-auto w-75" id="login-button" type="submit">{% trans "Sign In" %}</button>
+          <a class="button secondaryAction pt-1 pb-2" id='forgot-password' href="{% url 'account_reset_password' %}">{% trans "Forgot Password ?" %}</a>
+        </form>
+
+        <hr>
+
+        {% get_providers as socialaccount_providers %}
+
+        {% if socialaccount_providers %}
+        <p class="lead">{% blocktrans with site.name as site_name %}Please sign in with one
+        of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+        for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+
+        <div class="socialaccount_ballot">
+
+          <ul class="socialaccount_providers">
+            {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+          </ul>
+
+          <div class="login-or">{% trans 'or' %}</div>
+
+        </div>
+
+        {% include "socialaccount/snippets/login_extra.html" %}
+
+        {% else %}
+        <p class="lead w-75 mx-auto" id="signup-link">{% blocktrans %}Don't have an account ? <small><a href="{{ signup_url }}">SIGN UP</a></small>{% endblocktrans %}</p>
+        {% endif %}
+
+      </div>
+      <div class="col-1 col-sm-2 col-md-3 col-lg-3 col-xl-4">
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript">
+  $('document').ready(function(){
+    $('#{{form.login.id_for_label}}').on('focusin', function(){
+      changeInputGroupOpacity($(this).parent());
+    })
+    $('#{{form.password.id_for_label}}').on('focusin', function(){
+      changeInputGroupOpacity($(this).parent());
+    })
+    function changeInputGroupOpacity(InputGroup){
+      $(InputGroup).on('focusin', function(){
+        $(this).css('opacity', '1')
+      }).on('focusout', function(){
+        $(this).css('opacity', '0.5')
+      })
+    }
+  })
+</script>
+{% endblock javascript %}

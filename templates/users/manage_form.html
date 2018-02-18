@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- {% if messages %}
+<ul class='messages'>
+  {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+    {{ message }}
+    </li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+<form class="" method="post">
+  {% csrf_token %}
+  {{form}}
+  <input type="submit" name="manage" value="Save">
+
+</form>
+
+<form class="" method="post">
+  {% csrf_token %}
+  <input type="submit" name="remove" value="Delete">
+</form> -->
+
+
+<section class="custom-manage-form">
+  <div class="container">
+
+    <div class="row">
+      <div class="col px-0 px-lg-3">
+        <div class="bg-light text-center mx-0">
+          <h2 class="text-secondary d-flex justify-content-center mb-0 p-5">
+            <i class="fa fa-wrench fa-lg">&nbsp;&nbsp;</i>
+            Settings
+          </h2>
+        </div>
+        <!-- <hr class="d-none d-lg-block"> -->
+        <br>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-lg-4 px-0 px-lg-3">
+        <div class="list-group d-none d-lg-block" id="list-tab" role="tablist">
+          <a class="list-group-item d-flex justify-content-left list-group-item-action border-0 active" style="border-radius:0;" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">
+            <i class="fa fa-id-badge px-1 mr-4"></i>
+            <small>Profile</small>
+          </a>
+          <a class="list-group-item d-flex justiy-content-right list-group-item-action border-0" id="list-password-list" data-toggle="list" href="#list-password" role="tab" aria-controls="password">
+            <i class="fa fa-lock px-1 mr-4"></i>
+            <small>Change Password</small>
+          </a>
+          <a class="list-group-item d-flex justiy-content-right list-group-item-action border-0" id="list-remove-list" data-toggle="list" href="#list-remove" role="tab" aria-controls="remove">
+            <i class="fa fa-user-times mr-4"></i>
+            <small>Remove Account</small>
+          </a>
+          <a class="list-group-item d-flex justiy-content-right list-group-item-action border-0"  href="{% url 'messages' %}">
+            <i class="fa fa-comments mr-4"></i>
+            <small>Messages</small>
+          </a>
+        </div>
+        <ul class="nav nav-tabs nav-fill d-lg-none" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle='tab' role="tab" href="#list-profile"><i class="fa fa-id-badge"></i><small class="d-none d-md-inline-block">&nbsp;&nbsp;Profile</small></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle='tab' role="tab" href="#list-password" aria-controls="profile"><i class="fa fa-lock"></i><small class="d-none d-md-inline-block">&nbsp;&nbsp;Change Password</small></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle='tab' role="tab" href="#list-remove"><i class="fa fa-user-times"></i><small class="d-none d-md-inline-block">&nbsp;&nbsp;Remove Account</small></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'messages' %}"><i class="fa fa-comments"></i><small class="d-none d-md-inline-block">&nbsp;&nbsp;Messages</small></a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-12 col-lg-8 px-0 px-lg-3">
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+            <div class="pane-title d-flex justify-content-center bg-light pt-1 pb-2">
+              <p class="lead mb-0">Profile</p>
+            </div>
+            <div class="d-flex justify-content-center">
+              <form class="py-5" method="post">
+                {% if messages %}
+                <ul class='messages px-0'>
+                  {% for message in messages %}
+                    <small><li{% if message.tags %} class="list-unstyled text-success py-3 px-0 {{ message.tags }}"{% endif %}>
+                    {{ message }}
+                  </li></small>
+                  {% endfor %}
+                </ul>
+                {% endif %}
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="{{form.name.id_for_label}}"><small>Your Name</small></label>
+                  <div class="input-group">
+                    <input type="text" id="{{form.name.id_for_label}}" name="{{form.name.name}}" class="form-control" placeholder="{{form.name.label}}" value="{{form.initial.name}}">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="{{form.email.id_for_label}}"><small>Email</small></label>
+                  <div class="input-group">
+                    <input type="email" id="{{form.email.id_for_label}}" name="{{form.email.name}}" class="form-control" placeholder="{{form.email.label}}" value="{{form.initial.email}}">
+                  </div>
+                </div>
+                <div class="form-check">
+                  <label for="{{form.notifications.id_for_label}}" class="form-check-label">
+                    <input type="checkbox" id="{{form.notifications.id_for_label}}" name="{{form.notifications.name}}" class="form-check-input" {% if form.initial.notifications == True %}checked{% endif %}>
+                    <small>Notifications</small>
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label for="{{form.appear_in_search.id_for_label}}" class="form-check-label">
+                    <input type="checkbox" id="{{form.appear_in_search.id_for_label}}" name="{{form.appear_in_search.name}}" class="form-check-input" {% if form.initial.appear_in_search == True %}checked{% endif %}>
+                    <small>Appear In Search</small>
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label for="{{form.allow_anonymous_user.id_for_label}}" class="form-check-label">
+                    <input type="checkbox" id="{{form.allow_anonymous_user.id_for_label}}" name="{{form.allow_anonymous_user.name}}" class="form-check-input" {% if form.initial.allow_anonymous_user == True %}checked{% endif %}>
+                    <small>Allow Anonymous User</small>
+                  </label>
+                </div>
+                <input type="submit" name="manage" class="btn btn-success btn-sm mt-3" value="Update">
+              </form>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="list-password" role="tabpanel" aria-labelledby="list-password-list">
+            <div class="pane-title d-flex justify-content-center bg-light pt-1 pb-2">
+              <p class="lead mb-0">Change Password</p>
+            </div>
+            <div class="d-flex justify-content-center" id="password-change-form">
+              <form class="py-5" action="{% url 'account_change_password' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="{{change_password_form.oldpassword.id_for_label}}"><small>Old Password</small></label>
+                  <div class="input-group">
+                    <input type="password" id="{{change_password_form.oldpassword.id_for_label}}" name="{{change_password_form.oldpassword.name}}" class="form-control" placeholder="{{change_password_form.oldpassword.label}}">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="password" id="{{change_password_form.password1.id_for_label}}" name="{{change_password_form.password1.name}}" class="form-control" placeholder="{{change_password_form.password1.label}}">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="password" id="{{change_password_form.password2.id_for_label}}" name="{{change_password_form.password2.name}}" class="form-control" placeholder="{{change_password_form.password2.label}}">
+                  </div>
+                </div>
+                <input type="submit" class="btn btn-success btn-sm mt-3" name="change_password" value="Change">
+              </form>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="list-remove" role="tabpanel" aria-labelledby="list-remove-list">
+            <div class="pane-title d-flex justify-content-center bg-light pt-1 pb-2">
+              <p class="lead mb-0">Remove Account</p>
+            </div>
+            <div class="alert alert-danger mb-0 rounded-0" role="alert" id="remove-account-alert">
+              <h4 class="alert-heading mb-3">This will permentaly remove your account</h4>
+              <p class="mb-0 h6">Are you sure you wanna perform this action ?</p>
+            </div>
+            <div class="d-flex justify-content-center">
+              <form class="py-5" method="post">
+
+                {% csrf_token %}
+                <a href="{% url 'manage' %}" class="btn btn-secondary">Cancel</a>
+                <input type="submit" class="btn btn-danger" name="remove" value="Delete">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% endblock content %}

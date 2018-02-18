@@ -1,0 +1,331 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- <h1>Messages</h1>
+
+<h2>Recieved</h2>
+<ul>
+{% for object in user_messages %}
+<li><p>{{object.message}}</p></li>
+{% endfor %}
+</ul>
+
+
+<h2>Sent</h2>
+<ul>
+{% for object in sent_messages %}
+<li><p>{{object.message}}</p></li>
+{% endfor %}
+</ul> -->
+
+<section class="custom-messages-content">
+  <div class="container">
+
+    <div class="row">
+      <div class="col px-0 px-lg-3">
+        <div class="bg-light text-center mx-0">
+          <h2 class="text-secondary d-flex justify-content-center mb-0 p-5">
+            <i class="fa fa-comments fa-lg">&nbsp;&nbsp;</i>
+            Messages
+          </h2>
+        </div>
+        <!-- <br class="d-none d-lg-block"> -->
+        <br>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 px-0 px-lg-3">
+        <!-- <div class="list-group d-none d-lg-block" id="list-tab" role="tablist">
+          <a class="list-group-item d-flex justify-content-left list-group-item-action border-0 active" style="border-radius:0;" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">
+            <i class="fa fa-id-badge px-1 mr-4"></i>
+            <small>Profile</small>
+          </a>
+          <a class="list-group-item d-flex justiy-content-right list-group-item-action border-0" id="list-password-list" data-toggle="list" href="#list-password" role="tab" aria-controls="password">
+            <i class="fa fa-lock px-1 mr-4"></i>
+            <small>Change Password</small>
+          </a>
+          <a class="list-group-item d-flex justiy-content-right list-group-item-action border-0" id="list-remove-list" data-toggle="list" href="#list-remove" role="tab" aria-controls="remove">
+            <i class="fa fa-user-times mr-4"></i>
+            <small>Remove Account</small>
+          </a>
+          <a class="list-group-item d-flex justiy-content-right list-group-item-action border-0"  href="{% url 'manage' %}">
+            <i class="fa fa-cogs mr-4"></i>
+            <small>Settings</small>
+          </a>
+        </div> -->
+        <ul class="nav nav-tabs nav-fill" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle='tab' role="tab" href="#list-profile"><i class="fa fa-list"></i><small class="d-none d-md-inline-block">&nbsp;&nbsp;Received</small></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle='tab' role="tab" href="#list-password" aria-controls="profile"><i class="fa fa-heart"></i><small class="d-none d-md-inline-block">&nbsp;&nbsp;Favorite</small></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle='tab' role="tab" href="#list-remove"><i class="fa fa-paper-plane"></i><small class="d-none d-md-inline-block">&nbsp;&nbsp;Sent</small></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'manage' %}"><i class="fa fa-wrench"></i><small class="d-none d-md-inline-block">&nbsp;&nbsp;Settings</small></a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-12 px-0 px-lg-3">
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane bg-light fade show active" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+            <div class="pane-title d-flex justify-content-center pt-1 pb-2">
+              <p class="lead mb-0">Received Messages</p>
+            </div>
+            <div class="d-column-flex justify-content-left">
+              <!-- <form class="py-5" method="post">
+                {% if messages %}
+                <ul class='messages px-0'>
+                  {% for message in messages %}
+                    <small><li{% if message.tags %} class="list-unstyled text-success py-3 px-0 {{ message.tags }}"{% endif %}>
+                    {{ message }}
+                  </li></small>
+                  {% endfor %}
+                </ul>
+                {% endif %}
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for=""><small>Your Name</small></label>
+                  <div class="input-group">
+                    <input type="text" id="" name="" class="form-control" placeholder="" value="">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for=""><small>Email</small></label>
+                  <div class="input-group">
+                    <input type="email" id="" name="" class="form-control" placeholder="" value="">
+                  </div>
+                </div>
+                <div class="form-check">
+                  <label for="" class="form-check-label">
+                    <input type="checkbox" id="" name="" class="form-check-input" >
+                    <small>Notifications</small>
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label for="" class="form-check-label">
+                    <input type="checkbox" id="" name="" class="form-check-input" >
+                    <small>Appear In Search</small>
+                  </label>
+                </div>
+                <div class="form-check">
+                  <label for="" class="form-check-label">
+                    <input type="checkbox" id="" name="" class="form-check-input" >
+                    <small>Allow Anonymous User</small>
+                  </label>
+                </div>
+                <input type="submit" name="manage" class="btn btn-success btn-sm mt-3" value="Update">
+              </form> -->
+              <ul id="msg-list" class="mx-0 list-unstyled pb-3 px-2 px-sm-3 px-md-5">
+                <!-- <li class="d-flex justify-content-between align-items-center px-3 px-sm-4 px-md-5 py-3 mb-2 bg-white rounded">
+                  <small class="mr-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</small>
+                  <small class="message_345" data-target='#' onclick='favoriteToggle(this)'><i class="fa fa-heart-o text-secondary"></i></small>
+                </li> -->
+                {% for msg in user_messages %}
+                <li class="d-flex justify-content-between align-items-center px-3 px-sm-4 px-md-5 py-3 mb-2 bg-white rounded">
+                  <small>{{msg.message}}</small>
+                  <small class="message_{{msg.id}}" data-target='{{msg.get_absolute_url}}' onclick='favoriteToggle(this)'><i class="{% if not msg.favorite %}fa-heart-o text-secondary fa{% else %}fa-heart text-danger fa{% endif %}"></i></small>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            {% if user_messages.has_next %}
+            <button type="button" id="load-more-msg-list" class="btn btn-link" name="button">Load more</button>
+            {% endif %}
+          </div>
+          <div class="tab-pane bg-light fade" id="list-password" role="tabpanel" aria-labelledby="list-password-list">
+            <div class="pane-title d-flex justify-content-center bg-light pt-1 pb-2">
+              <p class="lead mb-0">Favorite Messages</p>
+            </div>
+            <div class="d-column-flex justify-content-center">
+              <!-- <form class="py-5" action="{% url 'account_change_password' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for=""><small>Old Password</small></label>
+                  <div class="input-group">
+                    <input type="password" id="" name="" class="form-control" placeholder="">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="password" id="" name="" class="form-control" placeholder="">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="password" id="" name="" class="form-control" placeholder="">
+                  </div>
+                </div>
+                <input type="submit" class="btn btn-success btn-sm mt-3" name="change_password" value="Change">
+              </form> -->
+              <ul id="favorite-msg" class="mx-0 list-unstyled pb-3 px-2 px-sm-3 px-md-5">
+                {% for msg in favorite_messages %}
+                <li class="d-flex justify-content-between align-items-center px-3 px-sm-4 px-md-5 py-3 mb-2 bg-white rounded">
+                  <small>{{msg.message}}</small>
+                  <small class="message_{{msg.id}}" data-target='{{msg.get_absolute_url}}' onclick='favoriteToggle(this)'><i class="{% if not msg.favorite %}fa-heart-o text-secondary fa{% else %}fa-heart text-danger fa{% endif %}"></i></small>
+                </li>
+                <!-- <li class="px-5 py-3 mb-2 bg-white rounded"><small>{% lorem %}</small></li> -->
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          <div class="tab-pane bg-light fade" id="list-remove" role="tabpanel" aria-labelledby="list-remove-list">
+            <div class="pane-title d-flex justify-content-center bg-light pt-1 pb-2">
+              <p class="lead mb-0">Sent Messages</p>
+            </div>
+            <!-- <div class="alert alert-danger mb-0 rounded-0" role="alert" id="remove-account-alert">
+              <h4 class="alert-heading mb-3">This will permentaly remove your account</h4>
+              <p class="mb-0 h6">Are you sure you wanna perform this action ?</p>
+            </div>
+            <div class="d-flex justify-content-center">
+              <form class="py-5" method="post">
+
+                {% csrf_token %}
+                <a href="{% url 'manage' %}" class="btn btn-secondary">Cancel</a>
+                <input type="submit" class="btn btn-danger" name="remove" value="Delete">
+              </form> -->
+              <div class="d-column-flex justify-content-left">
+                <ul id="sent-msg" class="mx-0 list-unstyled pb-3 px-2 px-sm-3 px-md-5">
+                  {% for msg in sent_messages %}
+                  <li class="d-flex justify-content-between align-items-center px-3 px-sm-4 px-md-5 py-3 mb-2 bg-white rounded"><small>{{msg.message}}</small></li>
+                  <!-- <li class="px-5 py-3 mb-2 bg-white rounded"><small>{% lorem %}</small></li> -->
+                  {% endfor %}
+                </ul>
+              </div>
+              {% if sent_messages.hax_next %}
+              <button type="button" id="load-more-sent-msg" class="btn btn-link" name="button">Load more</button>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
+
+{% block javascript %}
+
+
+<script type="text/javascript">
+  function favoriteToggle(thisToggle){
+    var favorite_msg = $('#favorite-msg'); // favorite-msg
+    var favoriteToggle = $(thisToggle);
+    var favoriteToggleIcon = $(favoriteToggle.children()[0]);
+    var favoriteStatus = false;
+    var favoriteIconON = 'fa-heart text-danger fa';
+    var favoriteIconOFF = 'fa-heart-o text-secondary fa';
+    favoriteToggleIcon.hasClass(favoriteIconOFF) ? ajaxFavoriteToggle('OFF') : ajaxFavoriteToggle('ON')
+    function ajaxFavoriteToggle(status){$.ajax({
+      type: 'GET',
+      url: $(favoriteToggle[0]).attr('data-target'),
+      data: {
+        'favoriteToggle': status,
+        // 'csrfmiddlewaretoken': Cookies.get('csrftoken'),
+      },
+      success: ajaxFavoriteSuccess
+    })}
+    function ajaxFavoriteSuccess(data, textStatus, jqXHR){
+      console.log(data.isFavorite);
+      data.isFavorite ? prependFavoriteElement(data) : removeFavoriteElement(data)
+    }
+    function prependFavoriteElement(data){
+    favoriteToggleIcon.removeClass(favoriteIconOFF).addClass(favoriteIconON);
+    favorite_msg.prepend('<li class="d-flex justify-content-between align-items-center px-3 px-sm-4 px-md-5 py-3 mb-2 bg-white rounded"><small>' + data.msg + '</small><small class='+ data.message_id +' data-target="' + data.url + '" onclick="favoriteToggle(this)"><i class="fa-heart text-danger fa"></i></small></li>');
+    }
+    function removeFavoriteElement(data){
+      favoriteToggleIcon.removeClass(favoriteIconON).addClass(favoriteIconOFF)
+      $('#favorite-msg').find('.'+ data.message_id +'').parent().fadeOut('fast', function(){
+        $(this).remove();
+      })
+      inMsgList = $('#msg-list').find('.'+ data.message_id +'').children()[0]
+      $(inMsgList).removeClass(favoriteIconON).addClass(favoriteIconOFF)
+    }
+  }
+</script>
+
+
+
+
+<script type="text/javascript">
+  $('document').ready(function(){
+    var load_more_msg_list = $('#load-more-msg-list');
+    var load_more_sent_msg = $('#load-more-sent-msg');
+    var msg_list = $('#msg-list');
+    var sent_msg = $('#sent-msg');
+    var favorite_msg = $('#favorite-msg'); // favorite-msg
+    var msg_list_page = {{user_messages.number}};
+    var sent_msg_page = {{sent_messages.number}};
+    var favorite_msg_page = {{favorite_messages.number}};
+    var isMessage = 'received';
+    load_more_sent_msg.on('click', function(){
+      isMessage = 'sent';
+      sent_msg_page += 1;
+      ajaxFunc();
+    })
+    load_more_msg_list.on('click', function(){
+      isMessage = 'received';
+      msg_list_page += 1;
+      ajaxFunc();
+    })
+    function ajaxFunc(){$.ajax({
+      type: 'GET',
+      url: window.location.pathname,
+      data: {
+        'page': isMessageType('page'),
+        'msg_type': isMessageType('msg_type'),
+      },
+      success: ajaxSuccess
+    })}
+    function isMessageType(dataParam) {
+      var value;
+      dataParam === 'page' ? value = isMessage === 'sent' ? sent_msg_page : favorite_msg_page || isMessage === 'received' ? msg_list_page : favorite_msg_page
+      : value = isMessage === 'sent' ? 'sent' : 'favorite' || isMessage === 'received' ? 'received' : 'favorite'
+      return value
+    }
+    function getMessageType() {
+      var element;
+      var page;
+      var button;
+      if (isMessageType('msg_type') === 'received'){
+        element = msg_list
+        page = msg_list_page
+        button = load_more_msg_list
+      }
+      else if (isMessageType('msg_type') === 'sent'){
+        element = sent_msg
+        page = sent_msg_page
+        button = load_more_sent_msg
+      }
+      else {
+        element = null // For favorite messages
+        page = null // For favorite messages
+        button = null // For favorite messages
+      }
+      return {'element': element, 'page': page, 'button': button};
+    }
+    function ajaxSuccess(data, textStatus, jqXHR){
+      // var jsonData = $.parseJSON(data);
+      var list = $.map(data.msgs, function(val){return val})
+      console.log(list)
+      appendFunc(list)
+      data.hasNext ? haxNextFunc() : getMessageType().button.hide();
+    }
+    function appendFunc(list) {$.each(list, function(index, msg){
+      // msg_list.append('<li class="pl-5 py-3 bg-white rounded mt-2"><small>' + value + '</small></li>')
+      if (getMessageType().element === sent_msg){
+        $('<li class="d-flex justify-content-between align-items-center px-3 px-sm-4 px-md-5 py-3 mb-2 bg-white rounded"><small>' + msg.message + '</small><small class="' + msg.message_id + '" data-target="' + msg.url + '" onclick="favoriteToggle(this)"></small></li>').hide().appendTo(getMessageType().element).fadeIn('fast');
+      }
+      else {
+        $('<li class="d-flex justify-content-between align-items-center px-3 px-sm-4 px-md-5 py-3 mb-2 bg-white rounded"><small>' + msg.message + '</small><small class="' + msg.message_id + '" data-target="' + msg.url + '" onclick="favoriteToggle(this)"><i class="' + msg.toggle_icon + '"></i></small></li>').hide().appendTo(getMessageType().element).fadeIn('fast');
+      }
+    })}
+    function haxNextFunc(){
+      getMessageType().page;
+    }
+  })
+</script>
+{% endblock javascript %}

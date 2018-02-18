@@ -1,0 +1,364 @@
+html, body, h1, h2, h3, h4, h5, h6, p, a {
+  font-family: 'Open Sans', sans-serif;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 100px;
+}
+
+footer {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+#search-button {
+  color: gray;
+}
+
+#search-button:hover, #search-button:active {
+  color: #000;
+}
+
+#search-button:focus {
+  outline:none;
+  box-shadow:none;
+}
+
+.custom-header {
+  margin: 30px 0;
+}
+
+.custom-header .lead {
+  font-size: 15px;
+}
+
+.custom-form {
+  margin-bottom: 30px;
+}
+
+.custom-form #basic-addon2 {
+  display: none;
+}
+
+.custom-content .content h5 {
+  font-size: 15px;
+  margin-bottom: 1rem;
+}
+
+.custom-content .content p {
+  font-size: 11px;
+}
+
+footer p {
+  letter-spacing: 2px;
+  font-size: 10px;
+}
+
+.custom-login-form, .custom-signup-form, .custom-message-form {
+  margin-top: 30px;
+}
+
+.custom-login-form p:first-child, .custom-signup-form p:first-child {
+  font-size: 20px;
+}
+
+.custom-login-form #signup-link, .custom-signup-form #signin-link {
+  font-size: .751rem;
+}
+
+.validations {
+  color: red;
+  font-size: .777rem;
+}
+
+#login-form, #signup-form, #message-form, #list-tab, #nav-tabContent, #logout-form {
+  box-shadow: -3px 6px 14px 2px #e6e6e6;
+}
+
+#user-image {
+  width: 80px;
+  height: auto;
+  position: absolute;
+  top: 16%;
+  left: 0;
+  right: 0;
+}
+
+#signin-head-text, #signup-head-text {
+  margin-bottom: 40px;
+}
+
+.user-icon, .new-user-icon {
+  margin-bottom: 30px;
+}
+
+.username-input-group, .password-input-group, .email-input-group {
+  font-size: 13px;
+}
+
+.username-input-group, .password-input-group, .email-input-group {
+  border-bottom: 1px solid #c5c6c7;
+  opacity: 0.5;
+}
+
+#id_login, #id_password {
+  border: none;
+}
+
+.username-input-group:hover, .password-input-group:hover, .email-input-group:hover {
+  opacity: 1;
+}
+
+#remember-me-checkbox {
+  font-size: 15px;
+}
+
+.custom-message-form #username-head-text {
+  font-size: 30px
+}
+
+#login-button, #signup-button, #message-button {
+  padding: .25rem .5rem;
+  font-size: .875rem;
+}
+
+#forgot-password {
+  font-size: 10px;
+} .nav-tabs .nav-link {
+  border-radius: 0;
+  .custom-manage-form {}
+    margin-top: 50px;
+}
+
+
+#remove-account-alert h4 {
+  font-size: 0.736rem;
+  font-weight: bold;
+}
+
+#remove-account-alert p {
+  font-size: 0.764rem;
+}
+
+#logout-form, #password-reset-form p,
+#password-reset-done p,
+#password-reset-from-key-done p,
+#verify-email p,
+#confirm-email p {
+  width: 100%;
+  font-size: 0.733rem;
+}
+
+#logout-form h2 {
+  font-size: 1.733rem;
+}
+
+.custom-password-change #password-change-form h1,
+.custom-password-reset #password-reset-form h1,
+.custom-password-reset-done #password-reset-done h1,
+.custom-password-reset-from-key-done #password-reset-from-key-done h1,
+.custom-verify-email #verify-email h1,
+.custom-confirm-email #confirm-email h1 {
+  font-size: 1.5rem;
+}
+
+.custom-password-change #password-change-form h2,
+.custom-message-form #message-form-message h2,
+.custom-account-deleted-message #account-deleted-message h2 {
+  font-size: 1rem;
+}
+
+
+@media (min-width: 360px) {
+  body {
+    margin-bottom: 200px;
+  }
+  .custom-header {
+    margin: 60px 0;
+  }
+  .custom-header .lead {
+    font-size: 25px;
+  }
+  .custom-form {
+    margin-bottom: 60px;
+  }
+  .custom-form .lead, .custom-content .lead {
+    font-size: 30px;
+  }
+  .custom-form #basic-addon2 {
+    display: block;
+  }
+  .custom-form #username-status {
+    display: none;
+  }
+  .custom-content .content h5 {
+    font-size: 20px;
+    margin-bottom: 1.5rem;
+  }
+  .custom-content .content p {
+    font-size: 15px;
+  }
+  footer p {
+    letter-spacing: 3px;
+    font-size: 15px;
+  }
+  .custom-login-form, .custom-signup-form, .custom-message-form {
+    margin-top: 100px;
+  }
+  .custom-login-form p:first-child, .custom-signup-form p:first-child {
+    font-size: 25px;
+  }
+  .username-input-group, .password-input-group, .email-input-group {
+    font-size: 20px;
+  }
+  .validations {
+    color: red;
+    font-size: 1rem;
+  }
+  #login-button, #signup-button, #message-button {
+    padding: .5rem 0.75rem;
+    font-size: 1rem;
+  }
+  .custom-login-form #signup-link, .custom-signup-form #signin-link {
+    font-size: 1rem;
+  }
+  .custom-message-form #username-head-text {
+    font-size: 40px
+  }
+  .custom-message-form #user-image {
+    width: 130px;
+    height: auto;
+    position: absolute;
+    top: 13%;
+    left: 0;
+    right: 0;
+  }
+  #remove-account-alert h4 {
+    font-size: 0.984rem;
+    font-weight: bold;
+  }
+
+  #remove-account-alert p {
+    font-size: 0.954rem;
+  }
+  #logout-form, #password-reset-form p,
+  #password-reset-done p,
+  #password-reset-from-key-done p,
+  #verify-email p,
+  #confirm-email p {
+    width: 90%;
+    font-size: 0.833rem;
+  }
+  #password-reset-form p {
+    width: 80%;
+    font-size: 0.833rem;
+  }
+  #logout-form h2 {
+    font-size: 2.333rem;
+  }
+  .custom-password-change #password-change-form h1,
+  .custom-password-reset #password-reset-form h1,
+  .custom-password-reset-done #password-reset-done h1,
+  .custom-password-reset-from-key-done #password-reset-from-key-done h1,
+  .custom-verify-email #verify-email h1,
+  .custom-confirm-email #confirm-email h1 {
+    font-size: 2rem;
+  }
+  .custom-password-change #password-change-form h2,
+  .custom-message-form #message-form-message h2,
+  .custom-account-deleted-message #account-deleted-message h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 576px) {
+  .custom-header .lead {
+    font-size: 30px;
+  }
+  #logout-form, #password-reset-form p,
+  #password-reset-done p,
+  #password-reset-from-key-done p,
+  #verify-email p,
+  #confirm-email p {
+    font-size: 1rem;
+  }
+
+  #logout-form h2 {
+    font-size: 2.433rem;
+  }
+  .custom-password-change #password-change-form h1,
+  .custom-password-reset #password-reset-form h1,
+  .custom-password-reset-done #password-reset-done h1,
+  .custom-password-reset-from-key-done #password-reset-from-key-done h1,
+  .custom-verify-email #verify-email h1,
+  .custom-confirm-email #confirm-email h1 {
+    font-size: 3rem;
+  }
+  .custom-password-change #password-change-form h2,
+  .custom-message-form #message-form-message h2,
+  .custom-account-deleted-message #account-deleted-message h2 {
+    font-size: 2rem;
+  }
+}
+
+
+@media (min-width: 768px) {
+  .custom-header {
+    margin: 80px 0;
+  }
+  .custom-header .lead {
+    font-size: 40px;
+  }
+  .custom-form {
+    margin-bottom: 80px;
+  }
+  .custom-form .lead, .custom-content .lead {
+    font-size: 60px;
+    margin-bottom: 2rem;
+  }
+  #logout-form {
+    width: 70%;
+  }
+}
+
+
+@media (min-width: 992px) {
+  /*.custom-header {
+    margin: 80px 0;
+  }*/
+  /*.custom-header .lead {
+    font-size: 40px;
+  }*/
+  /*.custom-form .lead {
+    font-size: 60px;
+    margin-bottom: 2rem;
+  }*/
+  #logout-form {
+    width: 50%;
+  }
+}
+
+
+@media (min-width: 1200px) {
+  .custom-header {
+    margin: 100px 0;
+  }
+  .custom-header .lead {
+    font-size: 50px;
+  }
+
+  .custom-form {
+    margin-bottom: 100px;
+  }
+  /*.custom-form .lead {
+    font-size: 60px;
+    margin-bottom: 2rem;
+  }*/
+}

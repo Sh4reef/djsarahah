@@ -1,0 +1,4 @@
+env/
+django_edition/settings/local.py
+*/__pycache__/
+*/*/__pycache__/

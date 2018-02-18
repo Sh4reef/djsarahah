@@ -1,0 +1,143 @@
+{% load static %}
+{% load hosts %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+  </head>
+  <body>
+
+
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light px-0">
+
+        <!-- <button class="navbar-toggler mr-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button> -->
+        <a class="navbar-brand" href="{% host_url 'home' %}"><i class="fa fa-home"></i></a>
+        <button class="navbar-toggler ml-auto border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="fa fa-bars"></span>
+        </button>
+
+        <div class="collapse navbar-collapse d-lg-flex" id="navbarSupportedContent">
+
+          <ul class="navbar-nav ml-auto order-2">
+            {% if not request.user.is_authenticated %}
+            <li class="nav-item text-center">
+              {% url 'account_login' as login_url %}
+              <a class="nav-link {% if request.get_full_path == login_url %}active{% endif %}" href="{{login_url}}"><i class="fa fa-sign-in fa-lg">&nbsp;&nbsp;</i>LOG IN <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item text-center">
+              {% url 'account_signup' as signup_url %}
+              <a class="nav-link {% if request.get_full_path == signup_url %}active{% endif %}" href="{{signup_url}}"><i class="fa fa-user-plus">&nbsp;&nbsp;</i>SIGN UP <span class="sr-only">(current)</span></a>
+            </li>
+            {% else %}
+            <li class="nav-item text-center">
+              {% url 'messages' as messages_url %}
+              <a class="nav-link {% if request.get_full_path == messages_url %}active{% endif %}" href="{{messages_url}}"><i class="fa fa-comments">&nbsp;&nbsp;</i>Messages <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item text-center">
+              {% url 'manage' as manage_url %}
+              <a class="nav-link {% if request.get_full_path == manage_url %}active{% endif %}" href="{{manage_url}}"><i class="fa fa-wrench">&nbsp;&nbsp;</i>Settings <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item text-center">
+              <a class="nav-link" href="{% url 'account_logout' %}"><i class="fa fa-sign-out fa-lg">&nbsp;</i>Log Out <span class="sr-only">(current)</span></a>
+            </li>
+            {% endif %}
+            <!-- <li class="nav-item text-center">
+              <a class="nav-link" href="#"><small>English&nbsp;</small><i class="fa fa-caret-down"></i></a>
+            </li> -->
+          </ul>
+          <form class="form-inline d-block mt-3 mt-md-0 order-1" action="{% url "search" %}" method="GET">
+            <div class="input-group input-group-sm border border-light">
+              <input name="q" type="text" class="form-control border-0" placeholder="Search for users" aria-label="Search for..." value="{{request.GET.q}}">
+              <span class="input-group-btn">
+                <button class="btn btn-light bg-white border-0" id='search-button' type="submit"><i class="fa fa-search fa-fw"></i></button>
+              </span>
+            </div>
+          </form>
+        </div>
+      </nav>
+    </div>
+
+    <!-- <form method='GET' action='{% url "search" %}'>
+    <input type="text" name="q" id='search' value="{{request.GET.q}}" placeholder="Search">
+    </form> -->
+
+    {% block content %}{% endblock content %}
+
+    <footer class="bg-light py-3 text-center">
+      <div class="container">
+        <p class="mb-0"><small>Made with <i class="fa fa-heart"></i> | &copy; 2017 <strong>example.com</strong></small></p>
+      </div>
+    </footer>
+
+    <script type="text/javascript" src='{% static "js/jquery-3.2.1.min.js" %}'></script>
+    <script type="text/javascript" src='{% static "js/popper.min.js" %}'></script>
+    <script type="text/javascript" src='{% static "js/bootstrap.min.js" %}'></script>
+    <!-- <script type="text/javascript" src='{% static "js/js.cookie-2.1.4.min.js" %}'></script> -->
+    {% block javascript %}{% endblock javascript %}
+    <script type="text/javascript">
+      $('document').ready(function(){
+
+        var searchInput = $('#search')
+        var typingTimer;
+        searchInput.keyup(function(event){
+          var results = [];
+          var searchVal = $(this).val();
+          var addElement = function(){
+            $.each(results, function(){
+              var user = this
+              str = user.username;
+              result = str.link(user.user_absolute_url);
+              $('.results ').prepend('<li>' + result + '</li>');
+            })
+          }
+
+          clearTimeout(typingTimer)
+          typingTimer = setTimeout(ajaxFunc, 1000)
+
+          function ajaxFunc(){
+            if(searchInput.val().length < 1){
+              $('.results').empty();
+            }
+            if(searchInput.val().length >= 1){
+              if($.inArray(searchInput.val(), results)){
+                $('.results').empty();
+              }
+              $.ajax({
+                method: 'GET',
+                url: '/search/',
+                data: {
+                  'q': searchVal,
+                  // 'csrfmiddlewaretoken': $("[name=csrfmiddlewaretoken]").val()
+                },
+                dataType: 'json',
+                success: function(data, textStatus, jqXHR){
+                  var jsonData = $.parseJSON(data);
+                  $.each(jsonData, function(){
+                    results.push({username: this.fields.username[0], user_absolute_url: this.fields.user_absolute_url});
+                    $('.results').empty();
+                    addElement();
+                  })
+                }
+              });
+            }
+          }
+        });
+        searchInput.keydown(function(event){
+          clearTimeout(typingTimer);
+        });
+      });
+    </script>
+  </body>
+</html>

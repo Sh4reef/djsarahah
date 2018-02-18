@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	<section class="custom-search-results mt-5">
+		<div class="container">
+			<div class="d-flex justify-content-left">
+				<div id="search-results" class="">
+					{% if objs %}
+					<ul class="list-unstyled">
+						{% for obj in objs %}
+						<li><a href="{{obj.user_absolute_url}}">{{obj.username}}</a></li>
+						{% endfor %}
+					</ul>
+					{% else %}
+						<h4>No search results</h4>
+					{% endif %}
+
+					<br>
+					<form method='GET' action='{% url "search" %}'>
+				    <input type="text" name="q" value="{{request.GET.q}}" placeholder="Search">
+				  </form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock content %}
