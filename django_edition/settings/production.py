@@ -66,7 +66,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'django_edition.urls'
 ROOT_HOSTCONF = 'django_edition.hosts'
-DEFAULT_HOST = ''
+DEFAULT_HOST = 'www'
 PARENT_HOST = 'djsarahah.herokuapp.com'
 
 TEMPLATES = [
