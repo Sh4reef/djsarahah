@@ -25,7 +25,7 @@ SECRET_KEY = 'Secret is secret'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.smpl.co', '.zbbdly.com']
+ALLOWED_HOSTS = ['.djsarahah.herokuapp.com']
 
 
 # Application definition
@@ -67,7 +67,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'django_edition.urls'
 ROOT_HOSTCONF = 'django_edition.hosts'
 DEFAULT_HOST = 'www'
-PARENT_HOST = 'zbbdly.com'
+PARENT_HOST = 'djsarahah.herokuapp.com'
 
 TEMPLATES = [
     {
@@ -153,7 +153,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticheroku')
 
 SITE_ID = 5
 
-SESSION_COOKIE_DOMAIN = '.zbbdly.com'
+SESSION_COOKIE_DOMAIN = '.djsarahah.herokuapp.com'
 
 LOGIN_URL = '/account/login/'
 LOGIN_REDIRECT_URL = '/messages/'
@@ -166,6 +166,6 @@ ACCOUNT_USERNAME_VALIDATORS = 'django_edition.validators.custom_validators'
 EMAIL_HOST = 'smtp.mailgun.org'
 EMAIL_HOST_USER = 'postmaster@sandboxe85335055b334e01ac94968d4db6e763.mailgun.org'
 EMAIL_HOST_PASSWORD = '1b62388fece193f234fd9eba05e54252'
-DEFAULT_FROM_EMAIL = 'support@zbbdly.com'
+DEFAULT_FROM_EMAIL = 'support@djsarahah.herokuapp.com'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
